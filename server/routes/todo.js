@@ -5,12 +5,14 @@ import { ObjectId } from "mongodb";
 
 const router = express.Router();
 
+// get ALL users
 router.get("/", async (req, res) => {
   let collection = db.collection("todousers");
   let results = await collection.find({}).toArray();
   res.status(200).send(results);
 });
 
+// get the data of ONE user
 router.get("/:name", async (req, res) => {
   let collection = db.collection("todousers");
   const result = await collection.findOne({ name: req.params.name });
@@ -21,6 +23,7 @@ router.get("/:name", async (req, res) => {
   }
 });
 
+// creating of a user
 router.post('/createuser', async (req, res) => {
   try {
     const newUser = {
@@ -28,7 +31,6 @@ router.post('/createuser', async (req, res) => {
       password: req.body.password,
       todos: [],
     }
-
     const collection = db.collection("todousers");
     const result = await collection.insertOne(newUser)
     res.send(result);
@@ -38,6 +40,7 @@ router.post('/createuser', async (req, res) => {
   }
 })
 
+// user's authentication
 router.get('/auth/:name/:password', async (req, res) => {
   try {
     const collection = db.collection("todousers");
@@ -57,22 +60,7 @@ router.get('/auth/:name/:password', async (req, res) => {
   }
 })
 
-const User = {
-  name: '',
-  password: '',
-  todos: [
-    {
-      text: '',
-      complition: ''
-    },
-    {
-      text: '',
-      complition: ''
-    },
-  ],
-
-}
-
+// adding todo item for a certain user
 router.post('/:name', async (req, res) => {
   try {
     const collection = db.collection("todousers");
