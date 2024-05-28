@@ -1,6 +1,5 @@
 import express from "express";
 import db from "../db/todousers.js";
-import { ObjectId } from "mongodb";
 
 
 const router = express.Router();
@@ -82,23 +81,6 @@ router.post('/:name', async (req, res) => {
     res.status(500).send({ message: "Error adding record" });
   }
 })
-
-router.patch("/:id", async (req, res) => {
-
-  try {
-    let collection = db.collection("todousers");
-    const user = await collection.findOne({ _id: new ObjectId(req.params.id) });
-    if (user) {
-
-    }
-
-
-
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Error adding record" });
-  }
-});
 
 
 
