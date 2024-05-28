@@ -6,17 +6,30 @@ const Registration: React.FC = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState<string>('')
   const [userPassword, setUserPassword] = useState<string>('')
+  const [nameWarn, setNameWarn] = useState(false)
+  const [passWarn, setPassWarn] = useState(false)
 
   function setName(e: { target: { value: React.SetStateAction<string>; }; }) {
-    setUserName(e.target.value)
+    setNameWarn(false);
+    setUserName(e.target.value);
   }
 
   function setPass(e: { target: { value: React.SetStateAction<string>; }; }) {
-    setUserPassword(e.target.value)
+    setPassWarn(false);
+    setUserPassword(e.target.value);
   }
 
   async function registration(e: { preventDefault: () => void; }) {
     e.preventDefault();
+
+    if (userName === '') {
+      setNameWarn(true);
+      return
+    }
+    if (userPassword === '') {
+      setPassWarn(true);
+      return
+    }
 
     const newUser = {
       name: userName,
@@ -46,6 +59,7 @@ const Registration: React.FC = () => {
         <input
           className={css.inp}
           placeholder='Name'
+          style={nameWarn ? { borderColor: 'red' } : {}}
           type="text"
           value={userName}
           onChange={setName}
@@ -53,6 +67,7 @@ const Registration: React.FC = () => {
         <input
           className={css.inp}
           placeholder='Password'
+          style={passWarn ? { borderColor: 'red' } : {}}
           type="text"
           value={userPassword}
           onChange={setPass}
