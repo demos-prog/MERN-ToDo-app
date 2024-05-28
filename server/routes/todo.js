@@ -66,22 +66,23 @@ router.post('/:name', async (req, res) => {
     const user = await collection.findOne({ name: req.params.name });
     if (user) {
       const usersTodoList = user.todos;
-      usersTodoList.push({
-        text: req.body.todo,
-        complition: false
-      })
-      const result = await collection.findOneAndReplace({
-        name: user.name,
-        todos: usersTodoList,
-      })
-      res.send(result)
+      usersTodoList.push(req.body);
+      
+      const result = await collection.findOneAndUpdate(
+        { name: req.params.name },
+        { $set: { todos: usersTodoList } },
+        { returnOriginal: false }
+      );
+
+      res.send(result.value)
+    } else {
+      res.status(404).send({ message: "User not found" });
     }
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Error adding record" });
   }
 })
-
 
 
 export default router;
