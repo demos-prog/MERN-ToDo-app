@@ -4,18 +4,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-// import App from './App.tsx'
 import Registration from './components/Registration/Registration.tsx';
 import ToDoList from './components/ToDoList/ToDoList.tsx';
 import Auth from './components/Auth/Auth.tsx';
 import './null_styles.css'
 
-// children: [
-//   {
-//     path: "",
-//     element: <RecordList />,
-//   },
-// ],
+
 
 const router = createBrowserRouter([
   {

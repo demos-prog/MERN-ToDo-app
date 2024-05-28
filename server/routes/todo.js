@@ -34,7 +34,7 @@ router.post('/createuser', async (req, res) => {
     res.send(result);
   } catch (err) {
     console.error(err);
-    res.status(500).send(JSON.stringify({ message: "Error adding user" }));
+    res.status(500).send({ message: "Error adding user" });
   }
 })
 
@@ -46,14 +46,14 @@ router.get('/auth/:name/:password', async (req, res) => {
       if (result.password === req.params.password) {
         res.send(result)
       } else {
-        res.status(404).send(JSON.stringify({ message: 'Incorrect password' }))
+        res.status(404).send({ message: 'Incorrect password' })
       }
     } else {
-      res.status(404).send(JSON.stringify({ message: 'User not found' }))
+      res.status(404).send({ message: 'User not found' })
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send(JSON.stringify({ message:"Error finding user"}));
+    res.status(500).send({ message: "Error finding user" });
   }
 })
 
@@ -91,7 +91,7 @@ router.post('/:name', async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error adding record");
+    res.status(500).send({ message: "Error adding record" });
   }
 })
 
@@ -108,7 +108,7 @@ router.patch("/:id", async (req, res) => {
 
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error adding record");
+    res.status(500).send({ message: "Error adding record" });
   }
 });
 
