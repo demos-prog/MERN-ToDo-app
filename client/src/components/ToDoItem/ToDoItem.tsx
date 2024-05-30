@@ -1,16 +1,17 @@
 import React from 'react';
+import { ToDo } from '../ToDoList/ToDoList';
 import css from './ToDoItem.module.css'
 
 type ToDoItemProps = {
-  toDoText: string,
+  todo: ToDo
 }
 
-const ToDoItem: React.FC<ToDoItemProps> = ({ toDoText }) => {
+const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
 
 
   return (
     <div className={css.itemWrap}>
-      {toDoText}
+      {todo.text}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ToDoItem from '../ToDoItem/ToDoItem';
 import css from './ToDoList.module.css'
 
-type ToDo = {
+export type ToDo = {
   text: string,
   complition: boolean,
 }
@@ -86,7 +86,7 @@ const ToDoList: React.FC = () => {
             return (
               <ToDoItem
                 key={i}
-                toDoText={todo.text}
+                todo={todo}
               />
             );
           })}
