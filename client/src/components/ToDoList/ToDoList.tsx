@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import ToDoItem from '../ToDoItem/ToDoItem';
 import css from './ToDoList.module.css'
 
 type ToDo = {
@@ -15,7 +16,8 @@ type User = {
 
 const ToDoList: React.FC = () => {
   const location = useLocation();
-  const [user, setuser] = useState<User>()
+  const [user, setuser] = useState<User>();
+  const [inpText, setInpText] = useState('');
 
   const name = location.pathname.split('/').pop()
 
@@ -44,6 +46,19 @@ const ToDoList: React.FC = () => {
     }
   }
 
+  const chInput = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setInpText(e.target.value)
+  }
+
+  const sendToDo = () => {
+    if (inpText !== '') {
+      addToDo({
+        text: inpText,
+        complition: false
+      })
+      setInpText('')
+    }
+  }
 
   useEffect(() => {
     getUsersData().then((data) => {
@@ -55,23 +70,27 @@ const ToDoList: React.FC = () => {
   return (
     <div id={css.wrap}>
       <div className={css.body}>
-        {user && user!.name}
-        <button onClick={() => {
-          addToDo({
-            text: 'gggg',
-            complition: false
-          })
-        }}>Add ToDo</button>
-        <ul>
+        <p>{user && `Hello ${user!.name} !`}</p>
+        <input
+          type="text"
+          value={inpText}
+          placeholder='what should be done ?'
+          onChange={chInput}
+        />
+        <button onClick={sendToDo}>
+          Add ToDo
+        </button>
+        <div className={css.toDoListWrap}>
           {user && user.todos && user.todos.length > 0 && user.todos.map((todo, i) => {
             if (!todo) return null;
             return (
-              <li key={i}>
-                {todo.text}
-              </li>
+              <ToDoItem
+                key={i}
+                toDoText={todo.text}
+              />
             );
           })}
-        </ul>
+        </div>
       </div>
     </div>
   );

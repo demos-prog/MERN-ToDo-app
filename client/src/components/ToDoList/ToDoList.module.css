@@ -11,3 +11,9 @@
   flex-direction: column;
   gap: 20px;
 }
+
+.toDoListWrap{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
