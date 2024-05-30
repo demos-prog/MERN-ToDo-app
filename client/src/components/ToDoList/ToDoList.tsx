@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ToDoItem from '../ToDoItem/ToDoItem';
+import ErrorComp from '../ErrorComp/ErrorComp';
 import css from './ToDoList.module.css'
 
 export type ToDo = {
@@ -18,6 +19,7 @@ const ToDoList: React.FC = () => {
   const location = useLocation();
   const [user, setuser] = useState<User>();
   const [inpText, setInpText] = useState('');
+  const [errorText, setErrorText] = useState('');
 
   const name = location.pathname.split('/').pop()
 
@@ -40,9 +42,10 @@ const ToDoList: React.FC = () => {
         console.log(data);
         setuser(data)
       })
+      setErrorText('');
     } else {
       const errorMessage = await res.json();
-      alert(errorMessage.message);
+      setErrorText(errorMessage.message);
     }
   }
 
@@ -67,10 +70,23 @@ const ToDoList: React.FC = () => {
     })
   }, [getUsersData])
 
+  const areThereSomeToDos = user && user.todos && user.todos.length > 0;
+
+  const list = (areThereSomeToDos && user.todos.map((todo, i) => {
+    if (!todo) return null;
+    return (
+      <ToDoItem
+        key={i}
+        todo={todo}
+      />
+    );
+  }))
+
   return (
     <div id={css.wrap}>
       <div className={css.body}>
         <p>{user && `Hello ${user!.name} !`}</p>
+        {errorText !== '' && <ErrorComp text={errorText} />}
         <input
           type="text"
           value={inpText}
@@ -81,15 +97,7 @@ const ToDoList: React.FC = () => {
           Add ToDo
         </button>
         <div className={css.toDoListWrap}>
-          {user && user.todos && user.todos.length > 0 && user.todos.map((todo, i) => {
-            if (!todo) return null;
-            return (
-              <ToDoItem
-                key={i}
-                todo={todo}
-              />
-            );
-          })}
+          {list || 'Nothing to do ... chill :)'}
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import ErrorComp from '../ErrorComp/ErrorComp';
 import css from './Registration.module.css'
 
 const Registration: React.FC = () => {
@@ -8,6 +9,7 @@ const Registration: React.FC = () => {
   const [userPassword, setUserPassword] = useState<string>('')
   const [nameWarn, setNameWarn] = useState(false)
   const [passWarn, setPassWarn] = useState(false)
+  const [errorText, setErrorText] = useState('');
 
   function setName(e: { target: { value: React.SetStateAction<string>; }; }) {
     setNameWarn(false);
@@ -48,13 +50,14 @@ const Registration: React.FC = () => {
       navigate(`/todo/${userName}`);
     } else {
       const errorMessage = await res.json();
-      alert(errorMessage.message);
+      setErrorText(errorMessage.message);
     }
   }
 
   return (
     <div className={css.wrap}>
       <p>Already have an account? <Link to={'/auth'}>Sign in</Link></p>
+      {errorText !== '' && <ErrorComp text={errorText} />}
       <form onSubmit={registration}>
         <input
           className={css.inp}
