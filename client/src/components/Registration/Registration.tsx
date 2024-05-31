@@ -61,18 +61,22 @@ const Registration: React.FC = () => {
       <form id={css.regForm} onSubmit={registration}>
         <input
           className={css.inp}
+          name='name'
           placeholder='Name'
           style={nameWarn ? { borderColor: 'red' } : {}}
           type="text"
           value={userName}
+          autoComplete='false'
           onChange={setName}
         />
         <input
           className={css.inp}
           placeholder='Password'
+          name='Password'
           style={passWarn ? { borderColor: 'red' } : {}}
           type="text"
           value={userPassword}
+          autoComplete='false'
           onChange={setPass}
         />
         <input id={css.submit} type="submit" value="Create user" />

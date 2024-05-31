@@ -55,6 +55,8 @@ const Auth: React.FC = () => {
         <input
           className={css.inp}
           placeholder='Name'
+          name='name'
+          autoComplete='false'
           type="text"
           style={nameWarn ? { borderColor: 'red' } : {}}
           value={userName}
@@ -63,6 +65,8 @@ const Auth: React.FC = () => {
         <input
           className={css.inp}
           placeholder='Password'
+          name='Password'
+          autoComplete='false'
           type="text"
           style={passWarn ? { borderColor: 'red' } : {}}
           value={userPassword}
