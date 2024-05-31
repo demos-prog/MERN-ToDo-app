@@ -87,15 +87,20 @@ const ToDoList: React.FC = () => {
       <div className={css.body}>
         <p>{user && `Hello ${user!.name} !`}</p>
         {errorText !== '' && <ErrorComp text={errorText} />}
-        <input
-          type="text"
-          value={inpText}
-          placeholder='what should be done ?'
-          onChange={chInput}
-        />
-        <button onClick={sendToDo}>
-          Add ToDo
-        </button>
+        <div className={css.inpWrap}>
+          <input
+            className={css.textInp}
+            type="text"
+            value={inpText}
+            placeholder='what should be done ?'
+            onChange={chInput}
+          />
+          <button
+            id={css.addBtn}
+            onClick={sendToDo}>
+            Add
+          </button>
+        </div>
         <div className={css.toDoListWrap}>
           {list || 'Nothing to do ... chill :)'}
         </div>
