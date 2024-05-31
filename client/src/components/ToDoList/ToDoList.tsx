@@ -39,7 +39,6 @@ const ToDoList: React.FC = () => {
 
     if (res.ok) {
       getUsersData().then((data) => {
-        console.log(data);
         setuser(data)
       })
       setErrorText('');
@@ -65,7 +64,6 @@ const ToDoList: React.FC = () => {
 
   useEffect(() => {
     getUsersData().then((data) => {
-      console.log(data);
       setuser(data)
     })
   }, [getUsersData])
@@ -91,6 +89,7 @@ const ToDoList: React.FC = () => {
           <input
             className={css.textInp}
             type="text"
+            name='addfield'
             value={inpText}
             placeholder='what should be done ?'
             onChange={chInput}
