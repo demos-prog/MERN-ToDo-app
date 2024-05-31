@@ -52,7 +52,8 @@ const ToDoList: React.FC = () => {
     setInpText(e.target.value)
   }
 
-  const sendToDo = () => {
+  const sendToDo = (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
     if (inpText !== '') {
       addToDo({
         text: inpText,
@@ -85,7 +86,7 @@ const ToDoList: React.FC = () => {
       <div className={css.body}>
         <p>{user && `Hello ${user!.name} !`}</p>
         {errorText !== '' && <ErrorComp text={errorText} />}
-        <div className={css.inpWrap}>
+        <form onSubmit={sendToDo} className={css.inpWrap}>
           <input
             className={css.textInp}
             type="text"
@@ -95,11 +96,12 @@ const ToDoList: React.FC = () => {
             onChange={chInput}
           />
           <button
+            type='submit'
             id={css.addBtn}
-            onClick={sendToDo}>
+          >
             Add
           </button>
-        </div>
+        </form>
         <div className={css.toDoListWrap}>
           {list || 'Nothing to do ... chill :)'}
         </div>

@@ -51,7 +51,7 @@ const Auth: React.FC = () => {
     <div className={css.wrap}>
       <p>Don't have an account? <Link to={'/'}>Sign up</Link></p>
       {errorText !== '' && <ErrorComp text={errorText} />}
-      <form onSubmit={authentication}>
+      <form id={css.regForm} onSubmit={authentication}>
         <input
           className={css.inp}
           placeholder='Name'

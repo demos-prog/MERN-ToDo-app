@@ -11,7 +11,14 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
 
   return (
     <div className={css.itemWrap}>
-      {todo.text}
+      <span>
+        {todo.text}
+      </span>
+      <div className={css.actions}>
+        <button>
+          delete
+        </button>
+      </div>
     </div>
   );
 };
