@@ -26,6 +26,8 @@
 }
 
 .toDoListWrap {
+  font-size: 20px;
+  min-height: 200px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -63,6 +65,13 @@
   transition: .2s;
 }
 
-#addBtn:hover{
+#addBtn:hover {
   background-color: #54c7d6;
+}
+
+#nothing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
 }

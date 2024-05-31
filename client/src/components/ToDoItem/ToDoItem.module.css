@@ -9,9 +9,11 @@
   cursor: pointer;
   width: 20px;
   height: 20px;
+  position: relative;
   transition: .5s;
 }
 
 .delImg:hover {
   transform: rotate(90deg) scale(1.1);
 }
+

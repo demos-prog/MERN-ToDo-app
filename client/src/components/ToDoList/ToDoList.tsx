@@ -83,6 +83,12 @@ const ToDoList: React.FC = () => {
     );
   }))
 
+  const nothing = (
+    <div id={css.nothing}>
+      Nothing to do ... chill :)
+    </div>
+  )
+
   return (
     <div id={css.wrap}>
       <div className={css.body}>
@@ -105,7 +111,7 @@ const ToDoList: React.FC = () => {
           </button>
         </form>
         <div className={css.toDoListWrap}>
-          {list || 'Nothing to do ... chill :)'}
+          {list || nothing}
         </div>
       </div>
     </div>
