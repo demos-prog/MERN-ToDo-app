@@ -40,8 +40,8 @@ const ToDoList: React.FC = () => {
     if (res.ok) {
       getUsersData().then((data) => {
         setuser(data)
+        setErrorText('');
       })
-      setErrorText('');
     } else {
       const errorMessage = await res.json();
       setErrorText(errorMessage.message);
