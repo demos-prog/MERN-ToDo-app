@@ -1,5 +1,5 @@
 #wrap {
-  background-image: url('../../assets/bg.jpg');
+  background-image: url('../../assets/bg2.jpg');
   background-size: cover;
   min-height: 100vh;
   height: 100svh;
@@ -10,6 +10,10 @@
 
 .body {
   background-color: rgba(255, 255, 255, 0.4);
+  -webkit-box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.53);
+  -moz-box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.53);
+  box-shadow: 7px 7px 10px 0px rgba(0, 0, 0, 0.53);
+  backdrop-filter: blur(10px);
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -51,14 +55,14 @@
 }
 
 .textInp:focus {
-  border-color: #FFDAB9;
+  border-color: #000000;
 }
 
 #addBtn {
   font-size: 20px;
   width: 20%;
-  height: 47px;
-  background-color: #87CEEB;
+  height: 48px;
+  background-color: #000000;
   color: white;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -66,7 +70,7 @@
 }
 
 #addBtn:hover {
-  background-color: #54c7d6;
+  background-color: #636363;
 }
 
 #nothing {
