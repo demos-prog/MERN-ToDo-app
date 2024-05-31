@@ -5,7 +5,7 @@ import db from "../db/todousers.js";
 const router = express.Router();
 
 // get ALL users
-router.get("/", async (req, res) => {
+router.get("/", async (_, res) => {
   let collection = db.collection("todousers");
   let results = await collection.find({}).toArray();
   res.status(200).send(results);
@@ -22,7 +22,7 @@ router.get("/:name", async (req, res) => {
   }
 });
 
-// creating of a user
+// creating a user
 router.post('/createuser', async (req, res) => {
   try {
     const newUser = {
@@ -84,7 +84,7 @@ router.post('/:name', async (req, res) => {
   }
 })
 
-
+//deleteing todo
 router.delete('/:name/:password/:text/:completion', async (req, res) => {
   try {
     const collection = db.collection("todousers");
