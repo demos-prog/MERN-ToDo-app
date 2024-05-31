@@ -6,7 +6,7 @@ import css from './ToDoList.module.css'
 
 export type ToDo = {
   text: string,
-  complition: boolean,
+  completion: boolean,
 }
 
 type User = {
@@ -25,7 +25,8 @@ const ToDoList: React.FC = () => {
 
   const getUsersData = useCallback(async () => {
     const response = await fetch(`http://localhost:5050/todo/${name}`);
-    return await response.json();
+    const data = await response.json();
+    setuser(data);
   }, [name]);
 
   const addToDo = async (todo: ToDo) => {
@@ -38,8 +39,7 @@ const ToDoList: React.FC = () => {
     })
 
     if (res.ok) {
-      getUsersData().then((data) => {
-        setuser(data)
+      getUsersData().then(() => {
         setErrorText('');
       })
     } else {
@@ -57,16 +57,15 @@ const ToDoList: React.FC = () => {
     if (inpText !== '') {
       addToDo({
         text: inpText,
-        complition: false
+        completion: false
       })
       setInpText('')
     }
   }
 
+
   useEffect(() => {
-    getUsersData().then((data) => {
-      setuser(data)
-    })
+    getUsersData();
   }, [getUsersData])
 
   const areThereSomeToDos = user && user.todos && user.todos.length > 0;
@@ -76,6 +75,9 @@ const ToDoList: React.FC = () => {
     return (
       <ToDoItem
         key={i}
+        getUsersData={getUsersData}
+        name={user.name}
+        password={user.password}
         todo={todo}
       />
     );

@@ -4,11 +4,38 @@ import deleteIcon from '../../assets/delete.svg';
 import css from './ToDoItem.module.css'
 
 type ToDoItemProps = {
-  todo: ToDo
+  todo: ToDo,
+  name: string,
+  password: string,
+  getUsersData: () => Promise<void>,
 }
 
-const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
+const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData }) => {
 
+  const deleteToDo = () => {
+    const url = `http://localhost:5050/todo/${name}/${password}/${todo.text}/${todo.completion}`;
+    fetch(url, {
+      method: 'DELETE'
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to delete the todo item');
+        }
+        return response.text();
+      })
+      .then(text => {
+        getUsersData();
+        if (text) {
+          const data = JSON.parse(text);
+          console.log('Delete successful', data);
+        } else {
+          console.log('Delete successful, no content returned');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
 
   return (
     <div className={css.itemWrap}>
@@ -18,6 +45,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
       <div className={css.actions}>
         <img
           className={css.delImg}
+          onClick={deleteToDo}
           src={deleteIcon}
           alt="delete"
         />
