@@ -1,7 +1,7 @@
 #wrap {
   background-image: url('../../assets/bg.jpg');
   background-size: cover;
-  width: 100vw;
+  min-height: 100vw;
   height: 100svh;
   display: flex;
   justify-content: center;

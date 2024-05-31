@@ -1,5 +1,6 @@
 import React from 'react';
 import { ToDo } from '../ToDoList/ToDoList';
+import deleteIcon from '../../assets/delete.svg';
 import css from './ToDoItem.module.css'
 
 type ToDoItemProps = {
@@ -15,9 +16,11 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo }) => {
         {todo.text}
       </span>
       <div className={css.actions}>
-        <button>
-          delete
-        </button>
+        <img
+          className={css.delImg}
+          src={deleteIcon}
+          alt="delete"
+        />
       </div>
     </div>
   );

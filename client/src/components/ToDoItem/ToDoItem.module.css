@@ -1,5 +1,17 @@
-.itemWrap{
+.itemWrap {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
+}
+
+.delImg {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transition: .5s;
+}
+
+.delImg:hover {
+  transform: rotate(90deg) scale(1.1);
 }
