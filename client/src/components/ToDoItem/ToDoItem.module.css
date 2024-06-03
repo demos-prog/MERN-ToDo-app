@@ -41,3 +41,30 @@
 .completed {
   text-decoration: line-through;
 }
+
+.changeForm {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#editInput {
+  width: 70%;
+  border-radius: 3px;
+  padding: 3px;
+  font-size: 15px;
+}
+
+#submBtn {
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 4px 20px;
+  transition: .2s;
+  color: white;
+  background-color: lightcoral;
+}
+
+#submBtn:hover {
+  color: #000;
+}

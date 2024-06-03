@@ -94,20 +94,25 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
 
   return (
     <div className={css.itemWrap}>
-      <span className={todo.completion ? css.completed : ''}>
-        {isEditing ? (
-          <form onSubmit={setNewText}>
-            <input
-              type="text"
-              value={inpValue}
-              onChange={(e) => setInpValue(e.target.value)}
-            />
-            <input type="submit" value='Change' />
-          </form>
-        ) : (
-          todo.text
-        )}
-      </span>
+      {isEditing ? (
+        <form className={css.changeForm} onSubmit={setNewText}>
+          <input
+            type="text"
+            value={inpValue}
+            id={css.editInput}
+            onChange={(e) => setInpValue(e.target.value)}
+          />
+          <input
+            type="submit"
+            value='Change'
+            id={css.submBtn}
+          />
+        </form>
+      ) : (
+        <span className={todo.completion ? css.completed : ''}>
+          {todo.text}
+        </span>
+      )}
       <div className={css.actions}>
         <img
           className={todo.completion ? `${css.completeImg} ${css.completedCheck}` : css.completeImg}
