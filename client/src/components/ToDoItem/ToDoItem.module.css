@@ -3,6 +3,13 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.itemWrap:hover {
+  padding: 9px;
+  border: 1px solid #000;
 }
 
 .delImg {
@@ -17,3 +24,8 @@
   transform: rotate(90deg) scale(1.1);
 }
 
+.actions{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
