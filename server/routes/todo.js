@@ -1,4 +1,4 @@
-import express from "express";
+import express, { text } from "express";
 import db from "../db/todousers.js";
 
 
@@ -124,6 +124,37 @@ router.patch('/:name/:password/:text/:completion', async (req, res) => {
       const usersTodoList = user.todos.map((todo) => {
         if (todo.text === req.params.text) {
           return { ...todo, completion: newCompletionStatus };
+        }
+        return todo;
+      });
+
+      const result = await collection.findOneAndUpdate(
+        { name: req.params.name },
+        { $set: { todos: usersTodoList } },
+        { returnOriginal: false }
+      );
+
+      res.send(result.value);
+    } else {
+      res.status(404).send({ message: "User not found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Error updating todo item" });
+  }
+});
+
+//update text
+router.patch('/update/:name/:password/:oldText/:newText/:completion', async (req, res) => {
+  try {
+    const collection = db.collection("todousers");
+    const user = await collection.findOne(
+      { name: req.params.name, password: req.params.password });
+
+    if (user) {
+      const usersTodoList = user.todos.map((todo) => {
+        if (todo.text === req.params.oldText) {
+          return { ...todo, text: req.params.newText };
         }
         return todo;
       });

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ToDo } from '../ToDoList/ToDoList';
 import deleteIcon from '../../assets/delete.svg';
+import editIcon from "../../assets/editIcon.svg";
 import completeIcon from '../../assets/complete.svg';
 import css from './ToDoItem.module.css'
 
@@ -12,6 +13,8 @@ type ToDoItemProps = {
 }
 
 const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData }) => {
+  const [inpValue, setInpValue] = useState(todo.text);
+  const [isEditing, setIsEditing] = useState(false);
 
   const deleteToDo = () => {
     const url = `http://localhost:5050/todo/${name}/${password}/${todo.text}/${todo.completion}`;
@@ -61,11 +64,49 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
       });
   }
 
+  const setNewText = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+
+    if (inpValue !== todo.text && inpValue !== '') {
+      const url = `http://localhost:5050/todo/update/${name}/${password}/${todo.text}/${inpValue}/${todo.completion}`;
+      fetch(url, {
+        method: 'PATCH'
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to update the todo item');
+          }
+          return response.text();
+        })
+        .then(text => {
+          setIsEditing(false);
+          getUsersData();
+          if (text) {
+            const data = JSON.parse(text);
+            console.log(data);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }
 
   return (
     <div className={css.itemWrap}>
       <span className={todo.completion ? css.completed : ''}>
-        {todo.text}
+        {isEditing ? (
+          <form onSubmit={setNewText}>
+            <input
+              type="text"
+              value={inpValue}
+              onChange={(e) => setInpValue(e.target.value)}
+            />
+            <input type="submit" value='Change' />
+          </form>
+        ) : (
+          todo.text
+        )}
       </span>
       <div className={css.actions}>
         <img
@@ -73,6 +114,12 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
           onClick={completeToDo}
           src={completeIcon}
           alt="complete"
+        />
+        <img
+          className={css.completeImg}
+          onClick={() => setIsEditing(prev => !prev)}
+          src={editIcon}
+          alt="edit"
         />
         <img
           className={css.delImg}
