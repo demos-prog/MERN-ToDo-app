@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToDo } from '../ToDoList/ToDoList';
 import deleteIcon from '../../assets/delete.svg';
 import editIcon from "../../assets/editIcon.svg";
@@ -91,6 +91,10 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
         });
     }
   }
+
+  useEffect(()=>{
+    setInpValue(todo.text)
+  },[todo.text])
 
   return (
     <div className={css.itemWrap}>
