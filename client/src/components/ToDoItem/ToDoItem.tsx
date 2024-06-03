@@ -1,6 +1,7 @@
 import React from 'react';
 import { ToDo } from '../ToDoList/ToDoList';
 import deleteIcon from '../../assets/delete.svg';
+import completeIcon from '../../assets/complete.svg';
 import css from './ToDoItem.module.css'
 
 type ToDoItemProps = {
@@ -37,12 +38,42 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
       });
   }
 
+  const completeToDo = () => {
+    const url = `http://localhost:5050/todo/${name}/${password}/${todo.text}/${!todo.completion}`;
+    fetch(url, {
+      method: 'PATCH'
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to update the todo item');
+        }
+        return response.text();
+      })
+      .then(text => {
+        getUsersData();
+        if (text) {
+          const data = JSON.parse(text);
+          console.log(data);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+
   return (
-    <div className={css.itemWrap}>
+    <div className={todo.completion ? `${css.itemWrap} ${css.completed}` : css.itemWrap}>
       <span>
         {todo.text}
       </span>
       <div className={css.actions}>
+        <img
+          className={css.delImg}
+          onClick={completeToDo}
+          src={completeIcon}
+          alt="complete"
+        />
         <img
           className={css.delImg}
           onClick={deleteToDo}

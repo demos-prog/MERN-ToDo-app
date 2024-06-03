@@ -112,4 +112,35 @@ router.delete('/:name/:password/:text/:completion', async (req, res) => {
   }
 })
 
+router.patch('/:name/:password/:text/:completion', async (req, res) => {
+  try {
+    const collection = db.collection("todousers");
+    const user = await collection.findOne(
+      { name: req.params.name, password: req.params.password });
+
+    if (user) {
+      const newCompletionStatus = req.params.completion === 'true' ? true : false;
+      const usersTodoList = user.todos.map((todo) => {
+        if (todo.text === req.params.text) {
+          return { ...todo, completion: newCompletionStatus };
+        }
+        return todo;
+      });
+
+      const result = await collection.findOneAndUpdate(
+        { name: req.params.name },
+        { $set: { todos: usersTodoList } },
+        { returnOriginal: false }
+      );
+
+      res.send(result.value);
+    } else {
+      res.status(404).send({ message: "User not found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Error updating todo item" });
+  }
+});
+
 export default router;
