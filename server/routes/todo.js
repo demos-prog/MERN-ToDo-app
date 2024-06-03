@@ -97,7 +97,7 @@ router.delete('/:name/:password/:text/:completion', async (req, res) => {
         return !(todo.text === req.params.text && todo.completion === isComplete);
       })
       const result = await collection.findOneAndUpdate(
-        { name: req.params.name },
+        { name: req.params.name, password: req.params.password },
         { $set: { todos: usersTodoList } },
         { returnOriginal: false }
       );
@@ -129,7 +129,7 @@ router.patch('/:name/:password/:text/:completion', async (req, res) => {
       });
 
       const result = await collection.findOneAndUpdate(
-        { name: req.params.name },
+        { name: req.params.name, password: req.params.password },
         { $set: { todos: usersTodoList } },
         { returnOriginal: false }
       );
@@ -160,7 +160,7 @@ router.patch('/update/:name/:password/:oldText/:newText/:completion', async (req
       });
 
       const result = await collection.findOneAndUpdate(
-        { name: req.params.name },
+        { name: req.params.name, password: req.params.password },
         { $set: { todos: usersTodoList } },
         { returnOriginal: false }
       );
