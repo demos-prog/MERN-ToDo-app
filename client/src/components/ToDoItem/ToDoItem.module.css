@@ -12,7 +12,8 @@
   border: 1px solid #000;
 }
 
-.delImg {
+.delImg,
+.completeImg {
   cursor: pointer;
   width: 20px;
   height: 20px;
@@ -24,12 +25,16 @@
   transform: rotate(90deg) scale(1.1);
 }
 
-.actions{
+.completeImg:hover {
+  transform: scale(1.2);
+}
+
+.actions {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.completed{
-  background-color: blueviolet;
+.completed {
+  text-decoration: line-through;
 }

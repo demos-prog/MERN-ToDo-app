@@ -112,6 +112,7 @@ router.delete('/:name/:password/:text/:completion', async (req, res) => {
   }
 })
 
+//completing
 router.patch('/:name/:password/:text/:completion', async (req, res) => {
   try {
     const collection = db.collection("todousers");
