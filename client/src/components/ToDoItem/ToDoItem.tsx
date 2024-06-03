@@ -68,9 +68,8 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
         {todo.text}
       </span>
       <div className={css.actions}>
-        {todo.completion && 'Done'}
         <img
-          className={css.completeImg}
+          className={todo.completion ? `${css.completeImg} ${css.completedCheck}` : css.completeImg}
           onClick={completeToDo}
           src={completeIcon}
           alt="complete"

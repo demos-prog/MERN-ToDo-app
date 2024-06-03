@@ -28,6 +28,10 @@
   transform: scale(1.2);
 }
 
+.completedCheck {
+  filter: brightness(0) saturate(100%) invert(41%) sepia(94%) saturate(1357%) hue-rotate(74deg) brightness(119%) contrast(91%);
+}
+
 .actions {
   display: flex;
   align-items: center;
