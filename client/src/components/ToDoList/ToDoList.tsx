@@ -20,6 +20,7 @@ const ToDoList: React.FC = () => {
   const [user, setuser] = useState<User>();
   const [inpText, setInpText] = useState('');
   const [errorText, setErrorText] = useState('');
+  const [filtersValue, setFiltersValue] = useState('all')
 
   const name = location.pathname.split('/').pop()
 
@@ -63,6 +64,9 @@ const ToDoList: React.FC = () => {
     }
   }
 
+  const handleChangeFilter = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setFiltersValue(e.target.value)
+  }
 
   useEffect(() => {
     getUsersData();
@@ -70,7 +74,8 @@ const ToDoList: React.FC = () => {
 
   const areThereSomeToDos = user && user.todos && user.todos.length > 0;
 
-  const list = (areThereSomeToDos && user.todos.map((todo, i) => {
+
+  const toDoList = (areThereSomeToDos && user.todos.map((todo, i) => {
     if (!todo) return null;
     return (
       <ToDoItem
@@ -89,29 +94,69 @@ const ToDoList: React.FC = () => {
     </div>
   )
 
+  const filter = (
+    <div id={css.filtersWrap}>
+      <label>
+        All
+        <input
+          type="radio"
+          value={'all'}
+          name='all'
+          checked={filtersValue === 'all'}
+          onChange={handleChangeFilter}
+        />
+      </label>
+      <label>
+        Completed
+        <input
+          type="radio"
+          value={'true'}
+          checked={filtersValue === 'true'}
+          name='Completed'
+          onChange={handleChangeFilter}
+        />
+      </label>
+      <label>
+        Uncompleted
+        <input
+          type="radio"
+          value={'false'}
+          name='Uncompleted'
+          checked={filtersValue === 'false'}
+          onChange={handleChangeFilter}
+        />
+      </label>
+    </div>
+  )
+
+  const textInput = (
+    <form onSubmit={sendToDo} className={css.inpWrap}>
+      <input
+        className={css.textInp}
+        type="text"
+        name='addfield'
+        value={inpText}
+        placeholder='what should be done ?'
+        onChange={chInput}
+      />
+      <button
+        type='submit'
+        id={css.addBtn}
+      >
+        Add
+      </button>
+    </form>
+  )
+
   return (
     <div id={css.wrap}>
       <div className={css.body}>
         <p>{user && `Hello ${user!.name} !`}</p>
         {errorText !== '' && <ErrorComp text={errorText} />}
-        <form onSubmit={sendToDo} className={css.inpWrap}>
-          <input
-            className={css.textInp}
-            type="text"
-            name='addfield'
-            value={inpText}
-            placeholder='what should be done ?'
-            onChange={chInput}
-          />
-          <button
-            type='submit'
-            id={css.addBtn}
-          >
-            Add
-          </button>
-        </form>
+        {textInput}
         <div className={css.toDoListWrap}>
-          {list || nothing}
+          {toDoList ? filter : null}
+          {toDoList || nothing}
         </div>
       </div>
     </div>
