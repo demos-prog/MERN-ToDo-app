@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  gap: 20px;
   border-radius: 6px;
 }
 
@@ -67,4 +68,10 @@
 
 #submBtn:hover {
   color: #000;
+}
+
+.text{
+  max-width: 800px;
+  text-wrap: wrap;
+  overflow: hidden;
 }

@@ -92,10 +92,10 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setInpValue(todo.text);
     setIsEditing(false);
-  },[todo.text])
+  }, [todo.text])
 
   return (
     <div className={css.itemWrap}>
@@ -114,7 +114,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
           />
         </form>
       ) : (
-        <span className={todo.completion ? css.completed : ''}>
+        <span className={todo.completion ? `${css.completed} ${css.text}` : css.text}>
           {todo.text}
         </span>
       )}
