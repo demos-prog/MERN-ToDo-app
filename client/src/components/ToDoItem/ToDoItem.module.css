@@ -43,7 +43,16 @@
 }
 
 .completedCheck {
-  filter: brightness(0) saturate(100%) invert(41%) sepia(94%) saturate(1357%) hue-rotate(74deg) brightness(119%) contrast(91%);
+  border-radius: 50%;
+  background-color: lightgreen;
+}
+
+.bgComplete{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
 }
 
 .actions {
@@ -68,14 +77,14 @@
 #editInput {
   width: 70%;
   border-radius: 3px;
-  padding: 3px;
-  font-size: 15px;
+  padding: 4px;
+  font-size: 18px;
 }
 
 #submBtn {
   cursor: pointer;
   border-radius: 3px;
-  padding: 4px 20px;
+  padding: 7px 30px;
   transition: .2s;
   color: white;
   background-color: lightcoral;

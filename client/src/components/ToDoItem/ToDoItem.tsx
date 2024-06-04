@@ -118,16 +118,18 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
 
   const actionsBar = (
     <div className={css.actions}>
-      <img
-        className={todo.completion ? `${css.completeImg} ${css.completedCheck}` : css.completeImg}
-        onClick={completeToDo}
-        onMouseEnter={() => setIsComplShown(true)}
-        onMouseLeave={() => setIsComplShown(false)}
-        src={completeIcon}
-        alt="complete"
-      />
+      <div className={todo.completion ? `${css.bgComplete} ${css.completedCheck}` : css.bgComplete}>
+        <img
+          className={css.completeImg}
+          onClick={completeToDo}
+          onMouseEnter={() => setIsComplShown(true)}
+          onMouseLeave={() => setIsComplShown(false)}
+          src={completeIcon}
+          alt="complete"
+        />
+      </div>
       {isComplShown && (
-        <div style={{ top: 30, left: -27 }} className={css.notification}>
+        <div style={{ top: 35, left: -27 }} className={css.notification}>
           {todo.completion ? 'Mark as uncompleted' : 'Mark as completed'}
         </div>
       )}
@@ -140,7 +142,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
         alt="edit"
       />
       {isEditShown && (
-        <div style={{ top: 30, left: 30 }} className={css.notification}>
+        <div style={{ top: 35, left: 40 }} className={css.notification}>
           Edit
         </div>
       )}
@@ -153,7 +155,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
         alt="delete"
       />
       {isDeleteShown && (
-        <div style={{ top: 30, left: 60 }} className={css.notification}>
+        <div style={{ top: 35, left: 70 }} className={css.notification}>
           Delete
         </div>
       )}
