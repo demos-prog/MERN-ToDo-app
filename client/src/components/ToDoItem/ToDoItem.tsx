@@ -93,7 +93,8 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
   }
 
   useEffect(()=>{
-    setInpValue(todo.text)
+    setInpValue(todo.text);
+    setIsEditing(false);
   },[todo.text])
 
   return (

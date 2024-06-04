@@ -66,7 +66,10 @@ router.post('/:name', async (req, res) => {
     const user = await collection.findOne({ name: req.params.name });
     if (user) {
       const usersTodoList = user.todos;
-      usersTodoList.push(req.body);
+
+      if (!usersTodoList.some((todo) => todo.text === req.body.text)) {
+        usersTodoList.push(req.body);
+      }
 
       const result = await collection.findOneAndUpdate(
         { name: req.params.name },
