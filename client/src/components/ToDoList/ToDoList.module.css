@@ -78,3 +78,22 @@
   align-items: center;
   height: 200px;
 }
+
+#filtersWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.filterItem input[type="radio"] {
+  cursor: pointer;
+}

@@ -96,7 +96,7 @@ const ToDoList: React.FC = () => {
 
   const filter = (
     <div id={css.filtersWrap}>
-      <label>
+      <label className={css.filterItem}>
         All
         <input
           type="radio"
@@ -106,7 +106,7 @@ const ToDoList: React.FC = () => {
           onChange={handleChangeFilter}
         />
       </label>
-      <label>
+      <label className={css.filterItem}>
         Completed
         <input
           type="radio"
@@ -116,7 +116,7 @@ const ToDoList: React.FC = () => {
           onChange={handleChangeFilter}
         />
       </label>
-      <label>
+      <label className={css.filterItem}>
         Uncompleted
         <input
           type="radio"
