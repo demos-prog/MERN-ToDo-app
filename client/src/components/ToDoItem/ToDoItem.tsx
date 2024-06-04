@@ -100,68 +100,76 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
     setIsEditing(false);
   }, [todo.text])
 
+  const changeInput = (
+    <form className={css.changeForm} onSubmit={setNewText}>
+      <input
+        type="text"
+        value={inpValue}
+        id={css.editInput}
+        onChange={(e) => setInpValue(e.target.value)}
+      />
+      <input
+        type="submit"
+        value='Change'
+        id={css.submBtn}
+      />
+    </form>
+  )
+
+  const actionsBar = (
+    <div className={css.actions}>
+      <img
+        className={todo.completion ? `${css.completeImg} ${css.completedCheck}` : css.completeImg}
+        onClick={completeToDo}
+        onMouseEnter={() => setIsComplShown(true)}
+        onMouseLeave={() => setIsComplShown(false)}
+        src={completeIcon}
+        alt="complete"
+      />
+      {isComplShown && (
+        <div style={{ top: 30, left: -27 }} className={css.notification}>
+          {todo.completion ? 'Mark as uncompleted' : 'Mark as completed'}
+        </div>
+      )}
+      <img
+        className={css.completeImg}
+        onClick={() => setIsEditing(prev => !prev)}
+        onMouseEnter={() => setIsEditShown(true)}
+        onMouseLeave={() => setIsEditShown(false)}
+        src={editIcon}
+        alt="edit"
+      />
+      {isEditShown && (
+        <div style={{ top: 30, left: 30 }} className={css.notification}>
+          Edit
+        </div>
+      )}
+      <img
+        className={css.delImg}
+        onClick={deleteToDo}
+        onMouseEnter={() => setDeleteShown(true)}
+        onMouseLeave={() => setDeleteShown(false)}
+        src={deleteIcon}
+        alt="delete"
+      />
+      {isDeleteShown && (
+        <div style={{ top: 30, left: 60 }} className={css.notification}>
+          Delete
+        </div>
+      )}
+    </div>
+  )
+
   return (
     <div className={css.itemWrap}>
       {isEditing ? (
-        <form className={css.changeForm} onSubmit={setNewText}>
-          <input
-            type="text"
-            value={inpValue}
-            id={css.editInput}
-            onChange={(e) => setInpValue(e.target.value)}
-          />
-          <input
-            type="submit"
-            value='Change'
-            id={css.submBtn}
-          />
-        </form>
+        changeInput
       ) : (
         <span className={todo.completion ? `${css.completed} ${css.text}` : css.text}>
           {todo.text}
         </span>
       )}
-      <div className={css.actions}>
-        <img
-          className={todo.completion ? `${css.completeImg} ${css.completedCheck}` : css.completeImg}
-          onClick={completeToDo}
-          onMouseEnter={() => setIsComplShown(true)}
-          onMouseLeave={() => setIsComplShown(false)}
-          src={completeIcon}
-          alt="complete"
-        />
-        {isComplShown && (
-          <div style={{ top: 30, left: -27 }} className={css.notification}>
-            {todo.completion ? 'Mark as uncompleted' : 'Mark as completed'}
-          </div>
-        )}
-        <img
-          className={css.completeImg}
-          onClick={() => setIsEditing(prev => !prev)}
-          onMouseEnter={() => setIsEditShown(true)}
-          onMouseLeave={() => setIsEditShown(false)}
-          src={editIcon}
-          alt="edit"
-        />
-        {isEditShown && (
-          <div style={{ top: 30, left: 30 }} className={css.notification}>
-            Edit
-          </div>
-        )}
-        <img
-          className={css.delImg}
-          onClick={deleteToDo}
-          onMouseEnter={() => setDeleteShown(true)}
-          onMouseLeave={() => setDeleteShown(false)}
-          src={deleteIcon}
-          alt="delete"
-        />
-        {isDeleteShown && (
-          <div style={{ top: 30, left: 60 }} className={css.notification}>
-            Delete
-          </div>
-        )}
-      </div>
+      {actionsBar}
     </div>
   );
 };
