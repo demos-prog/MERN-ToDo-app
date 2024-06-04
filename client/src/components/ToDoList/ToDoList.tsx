@@ -74,8 +74,13 @@ const ToDoList: React.FC = () => {
 
   const areThereSomeToDos = user && user.todos && user.todos.length > 0;
 
+  const sortedList = areThereSomeToDos && user.todos.filter((todo) => {
+    if (filtersValue === 'all') return todo
+    if (filtersValue === 'true') return todo.completion
+    if (filtersValue === 'false') return !todo.completion
+  })
 
-  const toDoList = (areThereSomeToDos && user.todos.map((todo, i) => {
+  const toDoList = (sortedList && sortedList.map((todo, i) => {
     if (!todo) return null;
     return (
       <ToDoItem
