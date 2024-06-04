@@ -15,6 +15,9 @@ type ToDoItemProps = {
 const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData }) => {
   const [inpValue, setInpValue] = useState(todo.text);
   const [isEditing, setIsEditing] = useState(false);
+  const [isComplShown, setIsComplShown] = useState(false);
+  const [isEditShown, setIsEditShown] = useState(false);
+  const [isDeleteShown, setDeleteShown] = useState(false);
 
   const deleteToDo = () => {
     const url = `http://localhost:5050/todo/${name}/${password}/${todo.text}/${todo.completion}`;
@@ -122,21 +125,42 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
         <img
           className={todo.completion ? `${css.completeImg} ${css.completedCheck}` : css.completeImg}
           onClick={completeToDo}
+          onMouseEnter={() => setIsComplShown(true)}
+          onMouseLeave={() => setIsComplShown(false)}
           src={completeIcon}
           alt="complete"
         />
+        {isComplShown && (
+          <div style={{ top: 30, left: -27 }} className={css.notification}>
+            {todo.completion ? 'Mark as uncompleted' : 'Mark as completed'}
+          </div>
+        )}
         <img
           className={css.completeImg}
           onClick={() => setIsEditing(prev => !prev)}
+          onMouseEnter={() => setIsEditShown(true)}
+          onMouseLeave={() => setIsEditShown(false)}
           src={editIcon}
           alt="edit"
         />
+        {isEditShown && (
+          <div style={{ top: 30, left: 30 }} className={css.notification}>
+            Edit
+          </div>
+        )}
         <img
           className={css.delImg}
           onClick={deleteToDo}
+          onMouseEnter={() => setDeleteShown(true)}
+          onMouseLeave={() => setDeleteShown(false)}
           src={deleteIcon}
           alt="delete"
         />
+        {isDeleteShown && (
+          <div style={{ top: 30, left: 60 }} className={css.notification}>
+            Delete
+          </div>
+        )}
       </div>
     </div>
   );
