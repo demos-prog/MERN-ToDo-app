@@ -88,6 +88,8 @@
 }
 
 .filterItem {
+  padding: 3px;
+  border-radius: 3px;
   user-select: none;
   display: flex;
   align-items: center;
@@ -97,4 +99,19 @@
 
 .filterItem input[type="radio"] {
   cursor: pointer;
+}
+
+.iconWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: lightgreen;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
 }

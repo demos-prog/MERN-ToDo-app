@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ToDoItem from '../ToDoItem/ToDoItem';
 import ErrorComp from '../ErrorComp/ErrorComp';
+import completeIcon from '../../assets/complete.svg';
 import css from './ToDoList.module.css'
 
 export type ToDo = {
@@ -101,34 +102,70 @@ const ToDoList: React.FC = () => {
 
   const filter = (
     <div id={css.filtersWrap}>
-      <label className={css.filterItem}>
+      <label
+        style={filtersValue === 'all' ? { border: '1px solid #000' } : {}}
+        className={css.filterItem}
+      >
         All
         <input
           type="radio"
           value={'all'}
           name='all'
+          style={{ display: 'none' }}
           checked={filtersValue === 'all'}
           onChange={handleChangeFilter}
         />
+        <div className={css.iconWrap}>
+          <img
+            className={css.icon}
+            src={completeIcon}
+            alt="edit"
+          />
+        </div>
+        <img
+          className={css.icon}
+          src={completeIcon}
+          alt="edit"
+        />
       </label>
-      <label className={css.filterItem}>
+      <label
+        style={filtersValue === 'true' ? { border: '1px solid #000' } : {}}
+        className={css.filterItem}
+      >
         Completed
         <input
           type="radio"
           value={'true'}
+          style={{ display: 'none' }}
           checked={filtersValue === 'true'}
           name='Completed'
           onChange={handleChangeFilter}
         />
+        <div className={css.iconWrap}>
+          <img
+            className={css.icon}
+            src={completeIcon}
+            alt="edit"
+          />
+        </div>
       </label>
-      <label className={css.filterItem}>
+      <label
+        style={filtersValue === 'false' ? { border: '1px solid #000' } : {}}
+        className={css.filterItem}
+      >
         Uncompleted
         <input
           type="radio"
           value={'false'}
           name='Uncompleted'
+          style={{ display: 'none' }}
           checked={filtersValue === 'false'}
           onChange={handleChangeFilter}
+        />
+        <img
+          className={css.icon}
+          src={completeIcon}
+          alt="edit"
         />
       </label>
     </div>
