@@ -103,7 +103,7 @@ const ToDoList: React.FC = () => {
   const filter = (
     <div id={css.filtersWrap}>
       <label
-        style={filtersValue === 'all' ? { border: '1px solid #000' } : {}}
+        style={filtersValue === 'all' ? { borderColor: 'lightgreen' } : {}}
         className={css.filterItem}
       >
         All
@@ -129,7 +129,7 @@ const ToDoList: React.FC = () => {
         />
       </label>
       <label
-        style={filtersValue === 'true' ? { border: '1px solid #000' } : {}}
+        style={filtersValue === 'true' ? { borderColor: 'lightgreen' } : {}}
         className={css.filterItem}
       >
         Completed
@@ -150,7 +150,9 @@ const ToDoList: React.FC = () => {
         </div>
       </label>
       <label
-        style={filtersValue === 'false' ? { border: '1px solid #000' } : {}}
+        style={filtersValue === 'false' ? { borderColor: 'lightgreen', height: 44 } : {
+          height: 44
+        }}
         className={css.filterItem}
       >
         Uncompleted

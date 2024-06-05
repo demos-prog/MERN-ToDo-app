@@ -88,7 +88,8 @@
 }
 
 .filterItem {
-  padding: 3px;
+  border: 2px dashed transparent;
+  padding: 5px;
   border-radius: 3px;
   user-select: none;
   display: flex;
