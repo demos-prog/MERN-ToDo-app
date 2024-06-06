@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ToDoItem from '../ToDoItem/ToDoItem';
 import ErrorComp from '../ErrorComp/ErrorComp';
 import completeIcon from '../../assets/complete.svg';
+import arrowDownIcon from '../../assets/arrow_square_down.svg';
 import css from './ToDoList.module.css'
 
 export type ToDo = {
@@ -21,7 +22,8 @@ const ToDoList: React.FC = () => {
   const [user, setuser] = useState<User>();
   const [inpText, setInpText] = useState('');
   const [errorText, setErrorText] = useState('');
-  const [filtersValue, setFiltersValue] = useState('all')
+  const [filtersValue, setFiltersValue] = useState('all');
+  const [isOptionsShown, setIsOptionsShown] = useState(false);
 
   const name = location.pathname.split('/').pop()
 
@@ -69,6 +71,17 @@ const ToDoList: React.FC = () => {
     setFiltersValue(e.target.value)
   }
 
+  const getFilterName = () => {
+    if (filtersValue === 'all') return 'All'
+    if (filtersValue === 'true') return 'Completed'
+    if (filtersValue === 'false') return 'Uncompleted'
+  }
+
+  const handleSelect = (value: string) => {
+    setFiltersValue(value);
+    setIsOptionsShown(false);
+  }
+
   useEffect(() => {
     getUsersData();
   }, [getUsersData])
@@ -97,6 +110,47 @@ const ToDoList: React.FC = () => {
   const nothing = (
     <div id={css.nothing}>
       Nothing to do ... chill :)
+    </div>
+  )
+
+  const options = (
+    <div id={css.selectCOntainer}>
+      <div onClick={() => setIsOptionsShown(p => !p)} id={css.selectNameContainer}>
+        <span>{getFilterName()}</span>
+        <img
+          id={css.arrow}
+          style={isOptionsShown ? { transform: 'rotate(180deg)' } : {}}
+          src={arrowDownIcon} alt="arrow"
+        />
+      </div>
+      {isOptionsShown ? (
+        <div id={css.selectList} onMouseLeave={() => setIsOptionsShown(false)}>
+          {filtersValue !== 'all' && (
+            <div
+              onClick={() => handleSelect('all')}
+              className={css.selectItem}
+            >
+              All
+            </div>
+          )}
+          {filtersValue !== 'true' && (
+            <div
+              onClick={() => handleSelect('true')}
+              className={css.selectItem}
+            >
+              Completed
+            </div>
+          )}
+          {filtersValue !== 'false' && (
+            <div
+              onClick={() => handleSelect('false')}
+              className={css.selectItem}
+            >
+              Uncompleted
+            </div>
+          )}
+        </div>
+      ) : null}
     </div>
   )
 
@@ -199,6 +253,7 @@ const ToDoList: React.FC = () => {
         {errorText !== '' && <ErrorComp text={errorText} />}
         {textInput}
         <div className={css.toDoListWrap}>
+          {toDoList ? options : null}
           {toDoList ? filter : null}
           {toDoList || nothing}
         </div>

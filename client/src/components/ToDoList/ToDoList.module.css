@@ -79,6 +79,47 @@
   height: 200px;
 }
 
+#selectCOntainer {
+  display: none;
+  position: relative;
+  user-select: none;
+}
+
+#selectNameContainer {
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+}
+
+#selectList {
+  padding: 5px 10px;
+  border-radius: 5px;
+  top: 40px;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  z-index: 10;
+}
+
+.selectItem {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+}
+
+.selectItem:hover {
+  border-color: #000;
+}
+
+#arrow {
+  transition: .2s;
+}
+
 #filtersWrap {
   width: 100%;
   display: flex;
@@ -116,3 +157,27 @@
   width: 20px;
   height: 20px;
 }
+
+@media (max-width: 750px) {
+  #filtersWrap {
+    display: none;
+    gap: 20px;
+  }
+
+  #selectCOntainer {
+    display: block;
+  }
+}
+
+@media (max-width: 650px) {
+  #filtersWrap {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .body {
+    width: 90%;
+  }
+}
+
+@media (max-width: 500px) {}
