@@ -70,6 +70,8 @@ const Registration: React.FC = () => {
 
   return (
     <div className={css.wrap}>
+      <span>Welcome to the <b>ToDo App</b></span>
+      <span>Please create a user</span>
       <p>Already have an account? <Link to={'/auth'}>Sign in</Link></p>
       {errorText !== '' && <ErrorComp text={errorText} />}
       <form id={css.regForm} onSubmit={registration}>
