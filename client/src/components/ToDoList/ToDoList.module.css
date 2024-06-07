@@ -28,6 +28,24 @@
   padding: 20px;
 }
 
+#headerWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#btn {
+  border-radius: 5px;
+  padding: 5px 30px;
+}
+
+#userName {
+  font-size: 20px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
 .toDoListWrap {
   font-size: 20px;
   min-height: 200px;

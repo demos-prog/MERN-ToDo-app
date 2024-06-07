@@ -249,7 +249,10 @@ const ToDoList: React.FC = () => {
   return (
     <div id={css.wrap}>
       <div className={css.body}>
-        <p>{user && `Hello ${user!.name} !`}</p>
+        <div id={css.headerWrap}>
+          <button id={css.btn}>Change User</button>
+          <div id={css.userName}>{user && `Hello ${user!.name} !`}</div>
+        </div>
         {errorText !== '' && <ErrorComp text={errorText} />}
         {textInput}
         <div className={css.toDoListWrap}>

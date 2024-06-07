@@ -201,7 +201,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
           {todo.text}
         </span>
       )}
-      {windowWidth > 700 ? actionsBar : dotActions}
+      {windowWidth > 750 ? actionsBar : dotActions}
     </div>
   );
 };
