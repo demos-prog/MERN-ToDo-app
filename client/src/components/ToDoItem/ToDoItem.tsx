@@ -3,6 +3,7 @@ import { ToDo } from '../ToDoList/ToDoList';
 import deleteIcon from '../../assets/delete.svg';
 import editIcon from "../../assets/editIcon.svg";
 import completeIcon from '../../assets/complete.svg';
+import treeDotsIcon from '../../assets/threeDots.svg';
 import css from './ToDoItem.module.css'
 
 type ToDoItemProps = {
@@ -18,6 +19,8 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
   const [isComplShown, setIsComplShown] = useState(false);
   const [isEditShown, setIsEditShown] = useState(false);
   const [isDeleteShown, setDeleteShown] = useState(false);
+  const [isDotsOpen, setIsDotsOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const deleteToDo = () => {
     const url = `http://localhost:5050/todo/${name}/${password}/${todo.text}/${todo.completion}`;
@@ -98,6 +101,15 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
   useEffect(() => {
     setInpValue(todo.text);
     setIsEditing(false);
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [todo.text])
 
   const changeInput = (
@@ -115,6 +127,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
       />
     </form>
   )
+
 
   const actionsBar = (
     <div className={css.actions}>
@@ -162,6 +175,23 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
     </div>
   )
 
+
+  const dotActions = (
+    <div className={css.dotActions}>
+      <img
+        className={css.dotsImg}
+        onClick={() => setIsDotsOpen(p => !p)}
+        src={treeDotsIcon}
+        alt="dots"
+      />
+      {isDotsOpen ? (
+        <div onMouseLeave={() => setIsDotsOpen(false)} className={css.dotsList}>
+          {actionsBar}
+        </div>
+      ) : null}
+    </div>
+  )
+
   return (
     <div className={css.itemWrap}>
       {isEditing ? (
@@ -171,7 +201,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
           {todo.text}
         </span>
       )}
-      {actionsBar}
+      {windowWidth > 700 ? actionsBar : dotActions}
     </div>
   );
 };

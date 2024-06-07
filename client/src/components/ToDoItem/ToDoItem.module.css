@@ -47,7 +47,7 @@
   background-color: lightgreen;
 }
 
-.bgComplete{
+.bgComplete {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,6 +61,26 @@
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.dotActions {
+  position: relative;
+}
+
+.dotsList {
+  position: absolute;
+  z-index: 10;
+  background-color: white;
+  left: -80px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.dotsImg {
+  transform: rotate(90deg);
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }
 
 .completed {

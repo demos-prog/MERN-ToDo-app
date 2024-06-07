@@ -167,17 +167,13 @@
   #selectCOntainer {
     display: block;
   }
-}
 
-@media (max-width: 650px) {
   #filtersWrap {
     flex-wrap: wrap;
     gap: 10px;
   }
 
   .body {
-    width: 90%;
+    width: 95%;
   }
 }
-
-@media (max-width: 500px) {}
