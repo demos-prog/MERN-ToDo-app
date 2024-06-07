@@ -35,6 +35,8 @@
 }
 
 #btn {
+  background-color: #4CAF50;
+  color: #ffffff; 
   border-radius: 5px;
   padding: 5px 30px;
 }

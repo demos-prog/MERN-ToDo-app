@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ToDoItem from '../ToDoItem/ToDoItem';
 import ErrorComp from '../ErrorComp/ErrorComp';
 import completeIcon from '../../assets/complete.svg';
@@ -24,12 +24,19 @@ const ToDoList: React.FC = () => {
   const [errorText, setErrorText] = useState('');
   const [filtersValue, setFiltersValue] = useState('all');
   const [isOptionsShown, setIsOptionsShown] = useState(false);
+  const navigate = useNavigate();
 
   const name = location.pathname.split('/').pop()
 
   const getUsersData = useCallback(async () => {
     const response = await fetch(`http://localhost:5050/todo/${name}`);
     const data = await response.json();
+    localStorage.setItem('toDoUser', JSON.stringify(
+      {
+        name: data.name,
+        password: data.password,
+      }
+    ));
     setuser(data);
   }, [name]);
 
@@ -80,6 +87,11 @@ const ToDoList: React.FC = () => {
   const handleSelect = (value: string) => {
     setFiltersValue(value);
     setIsOptionsShown(false);
+  }
+
+  const handleChangeUser = () => {
+    localStorage.removeItem('toDoUser')
+    navigate('/auth');
   }
 
   useEffect(() => {
@@ -250,7 +262,7 @@ const ToDoList: React.FC = () => {
     <div id={css.wrap}>
       <div className={css.body}>
         <div id={css.headerWrap}>
-          <button id={css.btn}>Change User</button>
+          <button onClick={handleChangeUser} id={css.btn}>Change User</button>
           <div id={css.userName}>{user && `Hello ${user!.name} !`}</div>
         </div>
         {errorText !== '' && <ErrorComp text={errorText} />}

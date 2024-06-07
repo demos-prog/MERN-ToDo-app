@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import ErrorComp from '../ErrorComp/ErrorComp';
 import css from './Registration.module.css'
@@ -47,12 +47,26 @@ const Registration: React.FC = () => {
     })
 
     if (res.ok) {
+      localStorage.setItem('toDoUser', JSON.stringify(
+        {
+          name: userName,
+          password: userPassword,
+        }
+      ));
       navigate(`/todo/${userName}`);
     } else {
       const errorMessage = await res.json();
       setErrorText(errorMessage.message);
     }
   }
+
+  useEffect(() => {
+    const userFromStorage = localStorage.getItem('toDoUser');
+    if (userFromStorage) {
+      const user = JSON.parse(userFromStorage);
+      navigate(`/todo/${user.name}`);
+    }
+  }, [navigate, userName])
 
   return (
     <div className={css.wrap}>
