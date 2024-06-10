@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ErrorComp from '../ErrorComp/ErrorComp';
+import { SERVER_LINK } from '../../main';
 import css from '../Registration/Registration.module.css'
 
 
@@ -37,13 +38,14 @@ const Auth: React.FC = () => {
       return
     }
 
-    const res = await fetch(`http://localhost:5050/todo/auth/${userName}/${userPassword}`)
+    const res = await fetch(`${SERVER_LINK}/todo/auth/${userName}/${userPassword}`, {
+      mode: 'no-cors',
+    })
 
     if (res.ok) {
       navigate(`/todo/${userName}`);
     } else {
-      const errorMessage = await res.json();
-      setErrorText(errorMessage.message);
+      setErrorText('Login error');
     }
   }
 

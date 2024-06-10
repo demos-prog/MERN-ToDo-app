@@ -4,6 +4,7 @@ import deleteIcon from '../../assets/delete.svg';
 import editIcon from "../../assets/editIcon.svg";
 import completeIcon from '../../assets/complete.svg';
 import treeDotsIcon from '../../assets/threeDots.svg';
+import { SERVER_LINK } from '../../main';
 import css from './ToDoItem.module.css'
 
 type ToDoItemProps = {
@@ -23,7 +24,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const deleteToDo = () => {
-    const url = `http://localhost:5050/todo/${name}/${password}/${todo.text}/${todo.completion}`;
+    const url = `${SERVER_LINK}/todo/${name}/${password}/${todo.text}/${todo.completion}`;
     fetch(url, {
       method: 'DELETE'
     })
@@ -48,7 +49,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
   }
 
   const completeToDo = () => {
-    const url = `http://localhost:5050/todo/${name}/${password}/${todo.text}/${!todo.completion}`;
+    const url = `${SERVER_LINK}/todo/${name}/${password}/${todo.text}/${!todo.completion}`;
     fetch(url, {
       method: 'PATCH'
     })
@@ -74,7 +75,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
     e.preventDefault();
 
     if (inpValue !== todo.text && inpValue !== '') {
-      const url = `http://localhost:5050/todo/update/${name}/${password}/${todo.text}/${inpValue}/${todo.completion}`;
+      const url = `${SERVER_LINK}/todo/update/${name}/${password}/${todo.text}/${inpValue}/${todo.completion}`;
       fetch(url, {
         method: 'PATCH'
       })

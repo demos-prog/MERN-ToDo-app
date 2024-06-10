@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import ErrorComp from '../ErrorComp/ErrorComp';
+import { SERVER_LINK } from '../../main';
 import css from './Registration.module.css'
 
 const Registration: React.FC = () => {
@@ -38,8 +39,9 @@ const Registration: React.FC = () => {
       password: userPassword,
     }
 
-    const res = await fetch(`http://localhost:5050/todo/createuser`, {
+    const res = await fetch(`${SERVER_LINK}/todo/createuser`, {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
@@ -55,8 +57,7 @@ const Registration: React.FC = () => {
       ));
       navigate(`/todo/${userName}`);
     } else {
-      const errorMessage = await res.json();
-      setErrorText(errorMessage.message);
+      setErrorText('Registration Error');
     }
   }
 
