@@ -9,7 +9,7 @@ import ToDoList from './components/ToDoList/ToDoList.tsx';
 import Auth from './components/Auth/Auth.tsx';
 import './null_styles.css'
 
-export const SERVER_LINK = 'https://server-l2k7cib4o-demosprogs-projects.vercel.app';
+export const SERVER_LINK = 'https://server-bi2rst9xr-demosprogs-projects.vercel.app';
 // export const SERVER_LINK = 'http://localhost:5050'
 
 const router = createBrowserRouter([
