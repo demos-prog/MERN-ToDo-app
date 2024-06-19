@@ -6,7 +6,6 @@ import todo from './routes/todo.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT;
 const app = express();
 
 app.use(cors());
@@ -17,6 +16,6 @@ app.get("/", (_, res) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}/`);
+app.listen(5050, () => {
+  console.log(`Server listening on http://localhost:5050/`);
 });
