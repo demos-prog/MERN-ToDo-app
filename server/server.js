@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/todo", todo);
-app.get("/", (_, res) => {
+app.use("/", (_, res) => {
   res.send('Hello from server')
 });
 
