@@ -41,7 +41,6 @@ const Registration: React.FC = () => {
 
     const res = await fetch(`${SERVER_LINK}/todo/createuser`, {
       method: 'POST',
-      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },

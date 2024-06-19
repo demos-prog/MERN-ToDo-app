@@ -37,10 +37,10 @@ const Auth: React.FC = () => {
       setPassWarn(true);
       return
     }
+    
+    const link = `${SERVER_LINK}/todo/auth/${userName}/${userPassword}`
 
-    const res = await fetch(`${SERVER_LINK}/todo/auth/${userName}/${userPassword}`, {
-      mode: 'no-cors',
-    })
+    const res = await fetch(link)
 
     if (res.ok) {
       navigate(`/todo/${userName}`);
