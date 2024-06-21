@@ -12,6 +12,7 @@
       "dest": "/"
     }
   ],
+  
   "functions": {
     "api/todo.js": {
       "maxDuration": 30
