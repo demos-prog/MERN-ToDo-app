@@ -11,5 +11,13 @@
       "src": "/(.*)",
       "dest": "/"
     }
-  ]
+  ],
+  "functions": {
+    "api/todo.js": {
+      "maxDuration": 30
+    },
+    "api/*.js": {
+      "maxDuration": 30
+    }
+  }
 }
