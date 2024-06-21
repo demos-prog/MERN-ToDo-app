@@ -1,10 +1,6 @@
 import express from "express";
 import cors from "cors";
-import dotenv from 'dotenv';
 import todo from './api/todo.js';
-
-
-dotenv.config();
 
 const app = express();
 
