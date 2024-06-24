@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import todo from './api/todo.js';
+import todo from './todo.js';
 
 const app = express();
 
@@ -12,6 +12,6 @@ app.use("/", (_, res) => {
 });
 
 
-// app.listen(5050, () => {
-//   console.log(`Server listening on http://localhost:5050/`);
-// });
+app.listen(5050, () => {
+  console.log(`Server listening on http://localhost:5050/`);
+});
