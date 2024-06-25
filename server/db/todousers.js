@@ -3,8 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-// const uri = process.env.ATLAS_URI || "";
-const uri = 'mongodb+srv://demos:3465@cluster0.ixp4znt.mongodb.net/';
+const uri = process.env.ATLAS_URI || "";
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
