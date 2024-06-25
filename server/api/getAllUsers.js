@@ -1,4 +1,3 @@
-// server/api/getAllUsers.js
 import db from "../db/todousers.js";
 
 export default async function handler(_, res) {
