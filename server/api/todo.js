@@ -1,18 +1,18 @@
 import express from "express";
 import db from "../db/todousers.js";
 
-
-const router = express.Router();
+const app = express();
+// const router = express.Router();
 
 // get ALL users
-router.get("/", async (_, res) => {
+app.get("/", async (_, res) => {
   let collection = db.collection("todousers");
   let results = await collection.find({}).toArray();
   res.status(200).send(results);
 });
 
 // get the data of ONE user
-router.get("/:name", async (req, res) => {
+app.get("/:name", async (req, res) => {
   let collection = db.collection("todousers");
   const result = await collection.findOne({ name: req.params.name });
   if (result) {
@@ -23,7 +23,7 @@ router.get("/:name", async (req, res) => {
 });
 
 // creating a user
-router.post('/createuser', async (req, res) => {
+app.post('/createuser', async (req, res) => {
   try {
     const newUser = {
       name: req.body.name,
@@ -40,7 +40,7 @@ router.post('/createuser', async (req, res) => {
 })
 
 // user's authentication
-router.get('/auth/:name/:password', async (req, res) => {
+app.get('/auth/:name/:password', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const result = await collection.findOne({ name: req.params.name })
@@ -60,7 +60,7 @@ router.get('/auth/:name/:password', async (req, res) => {
 })
 
 // adding todo item for a certain user
-router.post('/:name', async (req, res) => {
+app.post('/:name', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const user = await collection.findOne({ name: req.params.name });
@@ -88,7 +88,7 @@ router.post('/:name', async (req, res) => {
 })
 
 //deleteing todo
-router.delete('/:name/:password/:text/:completion', async (req, res) => {
+app.delete('/:name/:password/:text/:completion', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const user = await collection.findOne(
@@ -116,7 +116,7 @@ router.delete('/:name/:password/:text/:completion', async (req, res) => {
 })
 
 //completing
-router.patch('/:name/:password/:text/:completion', async (req, res) => {
+app.patch('/:name/:password/:text/:completion', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const user = await collection.findOne(
@@ -148,7 +148,7 @@ router.patch('/:name/:password/:text/:completion', async (req, res) => {
 });
 
 //update text
-router.patch('/update/:name/:password/:oldText/:newText/:completion', async (req, res) => {
+app.patch('/update/:name/:password/:oldText/:newText/:completion', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const user = await collection.findOne(
@@ -180,4 +180,4 @@ router.patch('/update/:name/:password/:oldText/:newText/:completion', async (req
 
 
 
-export default router;
+export default app;
