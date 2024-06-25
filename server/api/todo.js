@@ -2,17 +2,17 @@ import express from "express";
 import db from "../db/todousers.js";
 
 const app = express();
-// const router = express.Router();
+const router = app.router();
 
 // get ALL users
-app.get("/", async (_, res) => {
+router.get("/", async (_, res) => {
   let collection = db.collection("todousers");
   let results = await collection.find({}).toArray();
   res.status(200).send(results);
 });
 
 // get the data of ONE user
-app.get("/:name", async (req, res) => {
+router.get("/:name", async (req, res) => {
   let collection = db.collection("todousers");
   const result = await collection.findOne({ name: req.params.name });
   if (result) {
@@ -23,7 +23,7 @@ app.get("/:name", async (req, res) => {
 });
 
 // creating a user
-app.post('/createuser', async (req, res) => {
+router.post('/createuser', async (req, res) => {
   try {
     const newUser = {
       name: req.body.name,
@@ -40,7 +40,7 @@ app.post('/createuser', async (req, res) => {
 })
 
 // user's authentication
-app.get('/auth/:name/:password', async (req, res) => {
+router.get('/auth/:name/:password', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const result = await collection.findOne({ name: req.params.name })
@@ -60,7 +60,7 @@ app.get('/auth/:name/:password', async (req, res) => {
 })
 
 // adding todo item for a certain user
-app.post('/:name', async (req, res) => {
+router.post('/:name', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const user = await collection.findOne({ name: req.params.name });
@@ -88,7 +88,7 @@ app.post('/:name', async (req, res) => {
 })
 
 //deleteing todo
-app.delete('/:name/:password/:text/:completion', async (req, res) => {
+router.delete('/:name/:password/:text/:completion', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const user = await collection.findOne(
@@ -116,7 +116,7 @@ app.delete('/:name/:password/:text/:completion', async (req, res) => {
 })
 
 //completing
-app.patch('/:name/:password/:text/:completion', async (req, res) => {
+router.patch('/:name/:password/:text/:completion', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const user = await collection.findOne(
@@ -148,7 +148,7 @@ app.patch('/:name/:password/:text/:completion', async (req, res) => {
 });
 
 //update text
-app.patch('/update/:name/:password/:oldText/:newText/:completion', async (req, res) => {
+router.patch('/update/:name/:password/:oldText/:newText/:completion', async (req, res) => {
   try {
     const collection = db.collection("todousers");
     const user = await collection.findOne(
@@ -177,7 +177,6 @@ app.patch('/update/:name/:password/:oldText/:newText/:completion', async (req, r
     res.status(500).send({ message: "Error updating todo item" });
   }
 });
-
 
 
 export default app;
