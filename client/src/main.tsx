@@ -9,8 +9,8 @@ import ToDoList from './components/ToDoList/ToDoList.tsx';
 import Auth from './components/Auth/Auth.tsx';
 import './null_styles.css'
 
-// export const SERVER_LINK = 'https://server-bi2rst9xr-demosprogs-projects.vercel.app';
-export const SERVER_LINK = 'http://localhost:5050'
+export const SERVER_LINK = 'https://mern-todo-app-91o5.onrender.com/';
+// export const SERVER_LINK = 'http://localhost:5050'
 
 const router = createBrowserRouter([
   {
