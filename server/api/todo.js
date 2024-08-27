@@ -3,12 +3,6 @@ import db from "../db/todousers.js";
 
 const router = express.Router();
 
-// get ALL users
-router.get("/", async (_, res) => {
-  let collection = db.collection("todousers");
-  let results = await collection.find({}).toArray();
-  res.status(200).send(results);
-});
 
 // get the data of ONE user
 router.get("/:name", async (req, res) => {
@@ -177,5 +171,11 @@ router.patch('/update/:name/:password/:oldText/:newText/:completion', async (req
   }
 });
 
+// get ALL users
+router.get("/", async (_, res) => {
+  let collection = db.collection("todousers");
+  let results = await collection.find({}).toArray();
+  res.status(200).send(results);
+});
 
 export default router;
