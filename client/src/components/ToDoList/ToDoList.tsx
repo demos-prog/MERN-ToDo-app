@@ -4,6 +4,7 @@ import ToDoItem from '../ToDoItem/ToDoItem';
 import ErrorComp from '../ErrorComp/ErrorComp';
 import completeIcon from '../../assets/complete.svg';
 import arrowDownIcon from '../../assets/arrow_square_down.svg';
+import { SERVER_LINK } from '../../main';
 import css from './ToDoList.module.css'
 
 export type ToDo = {
@@ -29,7 +30,7 @@ const ToDoList: React.FC = () => {
   const name = location.pathname.split('/').pop()
 
   const getUsersData = useCallback(async () => {
-    const response = await fetch(`http://localhost:5050/todo/${name}`);
+    const response = await fetch(`${SERVER_LINK}/todo/${name}`);
     const data = await response.json();
     localStorage.setItem('toDoUser', JSON.stringify(
       {
@@ -41,7 +42,7 @@ const ToDoList: React.FC = () => {
   }, [name]);
 
   const addToDo = async (todo: ToDo) => {
-    const res = await fetch(`http://localhost:5050/todo/${name}`, {
+    const res = await fetch(`${SERVER_LINK}/todo/${name}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
