@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import ErrorComp from '../ErrorComp/ErrorComp';
 import { SERVER_LINK } from '../../main';
 import css from './Registration.module.css'
+import Loader from '../Loader/Loader';
 
 const Registration: React.FC = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Registration: React.FC = () => {
   const [userPassword, setUserPassword] = useState<string>('')
   const [nameWarn, setNameWarn] = useState(false)
   const [passWarn, setPassWarn] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [errorText, setErrorText] = useState('');
 
   function setName(e: { target: { value: React.SetStateAction<string>; }; }) {
@@ -22,7 +24,7 @@ const Registration: React.FC = () => {
     setUserPassword(e.target.value);
   }
 
-  async function registration(e: { preventDefault: () => void; }) {
+  function registration(e: { preventDefault: () => void; }) {
     e.preventDefault();
 
     if (userName === '') {
@@ -34,12 +36,13 @@ const Registration: React.FC = () => {
       return
     }
 
+    setIsLoading(true)
     const newUser = {
       name: userName,
       password: userPassword,
     }
 
-    const res = await fetch(`${SERVER_LINK}/todo/createuser`, {
+    const res = fetch(`${SERVER_LINK}/todo/createuser`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -47,7 +50,7 @@ const Registration: React.FC = () => {
       body: JSON.stringify(newUser)
     })
 
-    if (res.ok) {
+    res.then(() => {
       localStorage.setItem('toDoUser', JSON.stringify(
         {
           name: userName,
@@ -55,9 +58,11 @@ const Registration: React.FC = () => {
         }
       ));
       navigate(`/todo/${userName}`);
-    } else {
+    }).catch(() => {
       setErrorText('Registration Error');
-    }
+    }).finally(() => {
+      setIsLoading(false)
+    })
   }
 
   useEffect(() => {
@@ -97,6 +102,8 @@ const Registration: React.FC = () => {
         />
         <input id={css.submit} type="submit" value="Create user" />
       </form>
+
+      {isLoading && <Loader passedText={'This can take a long time because of using a free plan to deploy the server'} />}
     </div>
   );
 };

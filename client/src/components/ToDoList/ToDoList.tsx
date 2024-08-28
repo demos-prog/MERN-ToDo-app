@@ -6,6 +6,7 @@ import completeIcon from '../../assets/complete.svg';
 import arrowDownIcon from '../../assets/arrow_square_down.svg';
 import { SERVER_LINK } from '../../main';
 import css from './ToDoList.module.css'
+import Loader from '../Loader/Loader';
 
 export type ToDo = {
   text: string,
@@ -25,20 +26,29 @@ const ToDoList: React.FC = () => {
   const [errorText, setErrorText] = useState('');
   const [filtersValue, setFiltersValue] = useState('all');
   const [isOptionsShown, setIsOptionsShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate();
 
   const name = location.pathname.split('/').pop()
 
   const getUsersData = useCallback(async () => {
-    const response = await fetch(`${SERVER_LINK}/todo/${name}`);
-    const data = await response.json();
-    localStorage.setItem('toDoUser', JSON.stringify(
-      {
-        name: data.name,
-        password: data.password,
-      }
-    ));
-    setuser(data);
+    setIsLoading(true)
+    const response = fetch(`${SERVER_LINK}/todo/${name}`);
+    response.then(async (res) => {
+      const data = await res.json();
+      localStorage.setItem('toDoUser', JSON.stringify(
+        {
+          name: data.name,
+          password: data.password,
+        }
+      ));
+      setuser(data);
+    }).catch(err => {
+      console.log(err);
+    }).finally(() => {
+      setIsLoading(false)
+    })
+
   }, [name]);
 
   const addToDo = async (todo: ToDo) => {
@@ -274,6 +284,8 @@ const ToDoList: React.FC = () => {
           {toDoList || nothing}
         </div>
       </div>
+
+      {isLoading && <Loader />}
     </div>
   );
 };

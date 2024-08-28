@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ErrorComp from '../ErrorComp/ErrorComp';
 import { SERVER_LINK } from '../../main';
 import css from '../Registration/Registration.module.css'
+import Loader from '../Loader/Loader';
 
 
 const Auth: React.FC = () => {
@@ -11,6 +12,7 @@ const Auth: React.FC = () => {
   const [userPassword, setUserPassword] = useState<string>('')
   const [nameWarn, setNameWarn] = useState(false)
   const [passWarn, setPassWarn] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [errorText, setErrorText] = useState('');
 
   function setName(e: { target: { value: React.SetStateAction<string>; }; }) {
@@ -25,7 +27,7 @@ const Auth: React.FC = () => {
     setUserPassword(e.target.value);
   }
 
-  async function authentication(e: { preventDefault: () => void; }) {
+  function authentication(e: { preventDefault: () => void; }) {
     e.preventDefault();
 
     if (userName === '') {
@@ -37,16 +39,18 @@ const Auth: React.FC = () => {
       setPassWarn(true);
       return
     }
-    
+    setIsLoading(true)
     const link = `${SERVER_LINK}/todo/auth/${userName}/${userPassword}`
 
-    const res = await fetch(link)
+    const res = fetch(link)
 
-    if (res.ok) {
-      navigate(`/todo/${userName}`);
-    } else {
+    res.then(() => {
+       navigate(`/todo/${userName}`);
+    }).catch(() => {
       setErrorText('Login error');
-    }
+    }).finally(() => {
+      setIsLoading(false)
+    })
   }
 
   return (
@@ -76,6 +80,8 @@ const Auth: React.FC = () => {
         />
         <input id={css.submit} type="submit" value="Sign in" />
       </form>
+
+      {isLoading && <Loader passedText={'This can take a long time because of using a free plan to deploy the server'} />}
     </div>
   );
 };
