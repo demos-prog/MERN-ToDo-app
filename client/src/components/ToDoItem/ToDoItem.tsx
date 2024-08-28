@@ -150,6 +150,8 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, name, password, getUsersData 
       <img
         className={css.completeImg}
         onClick={() => setIsEditing(prev => !prev)}
+        onTouchStart={() => setIsEditShown(true)}
+        onTouchEnd={() => setIsEditShown(false)}
         onMouseEnter={() => setIsEditShown(true)}
         onMouseLeave={() => setIsEditShown(false)}
         src={editIcon}
