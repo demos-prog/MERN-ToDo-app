@@ -100,7 +100,12 @@ const Registration: React.FC = () => {
           autoComplete='false'
           onChange={setPass}
         />
-        <input id={css.submit} type="submit" value="Create user" />
+        <input
+          id={css.submit}
+          disabled={userName === '' || userPassword === ''}
+          type="submit"
+          value="Create user"
+        />
       </form>
 
       {isLoading && <Loader passedText={'This can take a long time because of using a free plan to deploy the server'} />}

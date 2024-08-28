@@ -6,6 +6,9 @@
   gap: 20px;
   align-items: center;
   justify-content: center;
+  background-image: url('../../assets//mainBg-min.jpg');
+  background-size: contain;
+  background-position: center;
 }
 
 span {
@@ -29,6 +32,7 @@ p {
 }
 
 .inp {
+  background-color: transparent;
   padding: 10px;
   border: 1px solid #766cff;
   font-size: 30px;
@@ -50,4 +54,10 @@ p {
 
 #submit:hover {
   background-color: rgb(0, 160, 0);
+}
+
+#submit:disabled,
+#submit:disabled:hover {
+  cursor: default;
+  background-color: rgba(0, 160, 0, 0.6);
 }

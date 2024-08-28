@@ -42,10 +42,8 @@ const Auth: React.FC = () => {
     setIsLoading(true)
     const link = `${SERVER_LINK}/todo/auth/${userName}/${userPassword}`
 
-    const res = fetch(link)
-
-    res.then(() => {
-       navigate(`/todo/${userName}`);
+    fetch(link).then(() => {
+      navigate(`/todo/${userName}`);
     }).catch(() => {
       setErrorText('Login error');
     }).finally(() => {
@@ -78,7 +76,12 @@ const Auth: React.FC = () => {
           value={userPassword}
           onChange={setPass}
         />
-        <input id={css.submit} type="submit" value="Sign in" />
+        <input
+          id={css.submit}
+          disabled={userName === '' || userPassword === ''}
+          type="submit"
+          value="Sign in"
+        />
       </form>
 
       {isLoading && <Loader passedText={'This can take a long time because of using a free plan to deploy the server'} />}
