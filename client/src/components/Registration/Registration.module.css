@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   background-image: url('../../assets//mainBg-min.jpg');
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 }
 
