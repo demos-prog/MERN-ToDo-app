@@ -128,7 +128,7 @@ const ToDoList: React.FC = () => {
         todo={todo}
       />
     );
-  }))
+  }).reverse())
 
   const nothing = (
     <div id={css.nothing}>
