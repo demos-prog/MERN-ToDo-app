@@ -27,7 +27,7 @@ const Auth: React.FC = () => {
     setUserPassword(e.target.value);
   }
 
-  function authentication(e: { preventDefault: () => void; }) {
+  async function authentication(e: { preventDefault: () => void; }) {
     e.preventDefault();
 
     if (userName === '') {
@@ -42,7 +42,14 @@ const Auth: React.FC = () => {
     setIsLoading(true)
     const link = `${SERVER_LINK}/todo/auth/${userName}/${userPassword}`
 
-    fetch(link).then(() => {
+    const res = fetch(link)
+    if (!(await res).ok) {
+      setErrorText('Login error');
+      setIsLoading(false)
+      return
+    }
+
+    res.then(() => {
       navigate(`/todo/${userName}`);
     }).catch(() => {
       setErrorText('Login error');

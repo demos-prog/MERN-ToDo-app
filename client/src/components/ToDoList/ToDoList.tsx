@@ -33,7 +33,11 @@ const ToDoList: React.FC = () => {
 
   const getUsersData = useCallback(async () => {
     setIsLoading(true)
+
     const response = fetch(`${SERVER_LINK}/todo/${name}`);
+    if (!(await response).ok) {
+      navigate('/auth')
+    }
     response.then(async (res) => {
       const data = await res.json();
       localStorage.setItem('toDoUser', JSON.stringify(
@@ -45,11 +49,12 @@ const ToDoList: React.FC = () => {
       setuser(data);
     }).catch(err => {
       console.log(err);
+      navigate('/auth')
     }).finally(() => {
       setIsLoading(false)
     })
 
-  }, [name]);
+  }, [name, navigate]);
 
   const addToDo = async (todo: ToDo) => {
     const res = await fetch(`${SERVER_LINK}/todo/${name}`, {
